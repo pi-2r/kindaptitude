@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/headerLogin :: common-header"/>
+
+<body class="signin">
+
+<section>
+
+    <div class="signinpanel">
+        <div class="check2fa">
+        <div class="putAlertLogin">
+            <div class="col-md-8  text-center">
+                <div th:if="${param.error}" class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                    <p th:text="#{login.error.message}" />
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                    <p th:text="#{login.logout.success}" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <center>
+                <div class="col-md-11">
+                    <form method="post"  id="loginForm" th:action="@{/validecheck2fa}">
+                    <h1 class="atlassian-id-hero--heading" th:text="#{login.twostepVerification}"></h1>
+                    <img class="filler-image" src="https://d301sr5gafysq2.cloudfront.net/d340220bdad7/img/blank_slate/2SV-off.svg"/>
+                    <br/><br/>
+                        <p th:text="#{login.2faDescription}"></p>
+
+                    <div class="form-group row">
+                        <input type="text" class="form-control" th:placeholder="#{login.2faExample}" id="check2fa" name="check2fa" />
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block" th:text="#{login.action.button}"></button>
+                </form>
+            </div>
+            </center>
+        </div><!-- row -->
+        </div>
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 2014. All Rights Reserved. Bracket Bootstrap 3 Admin Template
+            </div>
+            <div class="pull-right">
+                Created By: <a href="http://themepixels.com/" target="_blank">ThemePixels</a>
+            </div>
+        </div>
+
+    </div><!-- signin -->
+
+</section>
+
+
+<div th:replace="common/headerLogin :: before-body-scripts" />
+
+</body>
+</html>

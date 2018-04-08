@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+
+<head th:replace="common/headerUser :: common-header"/>
+
+<body style="" class="leftpanel-collapsed">
+<section>
+
+    <div th:replace="common/headerUser :: leftpanel" />
+    <div class="mainpanel">
+
+        <div th:replace="common/headerUser :: headerbar" />
+
+      <!--  <div class="pageheader">
+            <h2 ><i class="fa fa-credit-card"></i><div id="title" th:text="#{onglet4.addCB}"></div> </h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">You are here:</span>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Bracket</a></li>
+                    <li class="active">Dashboard</li>
+                </ol>
+            </div>
+        </div> -->
+
+        <div class="contentpanel">
+
+            <div class="notfoundpanel">
+                <img src="gif/catError.gif"  />
+                <p th:text="#{error.title}"></p>
+                <p th:text="#{error.message1} "></p>
+            </div><!-- notfoundpanel -->
+        </div><!-- contentpanel -->
+
+    </div><!-- mainpanel -->
+
+</section>
+<div th:replace="common/headerLogin :: before-body-scripts" />
+</body>
+</html>

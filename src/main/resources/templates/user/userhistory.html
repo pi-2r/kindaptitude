@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+
+<head th:replace="common/headerUser :: common-header"/>
+
+<body style="" class="leftpanel-collapsed">
+
+<section>
+
+    <div th:replace="common/headerUser :: leftpanel" />
+    <div class="mainpanel">
+
+        <div th:replace="common/headerUser :: headerbar" />
+
+        <div class="pageheader">
+            <h2><i class="fa fa-home"></i><div id="title" th:text="#{leftpanel.yourHistory}"></div></h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">You are here:</span>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Bracket</a></li>
+                    <li class="active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <!--  add alerte message -->
+            <div th:if="${adduserMessage == 'true'}" class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <center><p th:text="${message}" /></center>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" th:text="#{leftpanel.yourHistory}"></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table" id="table1">
+                                    <thead>
+                                    <tr>
+                                        <center><th th:text="#{yourhistory.date}"></th></center>
+                                        <center><th th:text="#{yourhistory.url}"></th></center>
+                                        <center><th th:text="#{yourhistory.yourIP}"></th></center>
+                                        <center><th th:text="#{yourhistory.yourDevice}"></th></center>
+                                        <center><th th:text="#{yourhistory.yourUrserAgent}"></th></center>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="message : ${yourUsers}" class="even gradeC">
+                                        <td th:text="${message.firstName}" ><center></center></td>
+                                        <td th:text="${message.lastName}"><center></center></td>
+                                        <td th:text="${message.email}"><center></center></td>
+                                        <td class="center"><center></center></td>
+                                        <td class="center"><center></center></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- table-responsive -->
+
+
+                        </div><!-- panel-body -->
+                    </div><!-- panel -->
+                </div>
+            </div>
+
+        </div><!-- contentpanel -->
+
+    </div><!-- mainpanel -->
+</section>
+
+<!--<head th:replace="common/headerUser :: before-body-scripts"/> -->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+
+<script src="js/jquery.cookies.js"></script>
+
+
+<script src="js/jquery.datatables.min.js"></script>
+<script src="js/select2.min.js"></script>
+
+<script src="js/custom.js"></script>
+<script src="js/devopsbuddy.js"></script>
+</body>
+</html>

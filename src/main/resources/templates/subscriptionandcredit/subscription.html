@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+
+<head th:replace="common/headerUser :: common-header"/>
+
+<body style="" class="leftpanel-collapsed">
+
+<section>
+
+    <div th:replace="common/headerUser :: leftpanel" />
+    <div class="mainpanel">
+
+        <div th:replace="common/headerUser :: headerbar" />
+
+        <div class="pageheader">
+            <h2><i class="fa fa-shopping-cart"></i><div id="title" th:text="#{onglet4.buy}"></div></h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">You are here:</span>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Bracket</a></li>
+                    <li class="active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <!--  add alerte message -->
+            <div th:if="${adduserMessage == 'true'}" class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <center><p th:text="${message}" /></center>
+            </div>
+            <div th:if="${adduserMessage == 'false'}" class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <center><p th:text="${message}" /></center>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <form id="subscriptionandcredit"   class="form-horizontal form-bordered" th:action="@{/subscriptionandcredit}" method="post" role="form">
+
+                    <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title" th:text="#{subscriptionandcredit.titlebuy}"></h3>
+                        <p>(en dure) les options sont valables durant 1 mois pour toute votre équipe</p>
+                    </div>
+                    <div class="panel-body panel-body-nopadding">
+
+                        <div class="form-group">
+                                <label class="col-sm-3 control-label">Default Input</label>
+                                <div class="col-sm-1">
+                                    <input id="numberOption" name="numberOption" type="text" placeholder="1" value="0" class="form-control" />
+                                </div>
+                                <div class="col-sm-5">
+                                    <select id="kindOfChoise" class="form-control mb15"  th:placeholder="#{profil.exempleYourCountry}" name="countrySelectBoxProfil">
+                                        <option value=""></option>
+                                        <option value="CRM" th:text="#{subscriptionandcredit.CRM}"></option>
+                                        <option value="MRK" th:text="#{subscriptionandcredit.MRK}" ></option>
+                                        <option value="REC" th:text="#{subscriptionandcredit.REC}"></option>
+                                        <option value="ENT" th:text="#{subscriptionandcredit.ENT}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Email</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="emailPack" name="emailPack" placeholder="0" value="0" class="form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">SMS</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="smsPack" name="smsPack" placeholder="0" value="0" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Prélévement automatique</label>
+                                <div class="col-md-6">
+                                    <div class="placeCkbox">
+                                        <div class="ckbox ckbox-success">
+                                            <input type="checkbox" id="checkbox1" name="checkbox1" th:checked="checked" class="form-control"  th:value="true" />
+                                            <label for="checkbox1"></label>
+                                            <input type="hidden" name="levy" class="levy" value="true"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        <div id="autoUpdate" class="autoUpdate" style="display: none;">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" th:text="#{subscriptionandcredit.yourCb}"></label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="ccNumber" id="ccNumber" class="form-control" th:placeholder="#{subscriptionandcredit.cbExample}"  />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" th:text="#{subscriptionandcredit.expiracyDate}"></label>
+                                <div class="col-sm-3">
+                                    <input type="text" name="expMonth" id="expMonth" class="form-control" th:placeholder="#{subscriptionandcredit.monthExample}"  />
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" name="expYear" id="expYear" class="form-control" th:placeholder="#{subscriptionandcredit.yearExample}"  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" th:text="#{subscriptionandcredit.code}"></label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="cvcNumber" id="cvcNumber" class="form-control" th:placeholder="#{subscriptionandcredit.cvcExample}"  />
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div><!-- panel-body -->
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button type="submit" class="btn btn-success" th:text="#{profile.sumbitProfil}"></button>
+                                <button type="reset" class="btn btn-default" th:text="#{profile.cancel}"></button>
+                            </div>
+                        </div>
+                    </div><!-- panel-footer -->
+                </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- contentpanel -->
+
+    </div><!-- mainpanel -->
+
+
+</section>
+
+<!--<head th:replace="common/headerUser :: before-body-scripts"/> -->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+
+<script src="js/select2.min.js"></script>
+
+<script src="js/custom.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#checkbox1').change(function() {
+            if (this.checked) {
+            $('#autoUpdate').fadeOut('slow');
+                $('input[name="levy"]').val("true");
+            }
+            else {
+                $('#autoUpdate').fadeIn('slow');
+                $('input[name="levy"]').val("false");
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

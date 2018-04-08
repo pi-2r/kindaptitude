@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+
+<head th:replace="common/headerUser :: common-header"/>
+
+<body style="" class="leftpanel-collapsed">
+
+<section>
+
+    <div th:replace="common/headerUser :: leftpanel" />
+    <div class="mainpanel">
+
+        <div th:replace="common/headerUser :: headerbar" />
+
+        <div class="pageheader">
+            <h2><i class="fa fa-users"></i><div id="title" th:text="#{leftpanel.yourUser}"></div></h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">You are here:</span>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Bracket</a></li>
+                    <li class="active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <!--  add alerte message -->
+            <div th:if="${adduserMessage == 'true'}" class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <center><p th:text="${message}" /></center>
+            </div>
+            <div th:if="${adduserMessage == 'false'}" class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <center><p th:text="${message}" /></center>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" th:text="#{leftpanel.yourUser}"></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table" id="table1">
+                                    <thead>
+                                    <tr>
+                                        <center><th th:text="#{yourusers.status}"></th></center>
+                                        <center><th th:text="#{yourusers.firstName}"></th></center>
+                                        <center><th th:text="#{yourusers.lastName}"></th></center>
+                                        <center><th th:text="#{yourusers.email}"></th></center>
+                                        <center><th th:text="#{yourusers.createDate}"></th></center>
+                                        <center><th th:text="#{yourusers.action}"></th></center>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="message : ${yourUsers}" class="even gradeC">
+                                        <td >
+                                            <div th:if="${message.masterGroupe}">
+                                                <center><span class="glyphicon glyphicon-king"></span></center>
+                                            </div>
+                                        </td>
+                                        <td th:text="${message.firstName}" ><center></center></td>
+                                        <td th:text="${message.lastName}"><center></center></td>
+                                        <td th:text="${message.email}"><center></center></td>
+                                        <td class="center"><center></center></td>
+                                        <td class="center">
+                                            <div class="btn-demo">
+                                                <button type="button" th:if="!${message.masterGroupe}" class="btn btn-danger" aria-hidden="true" data-toggle="modal" data-target="#trashUser" th:attr="data-id=${message.id}" th:text="#{default.delete}"></button>
+                                                <a th:if="!${message.blockedByOwnAdmin}">
+                                                    <button type="button" th:if="!${message.masterGroupe}" class="btn btn-warning" aria-hidden="true" data-toggle="modal" data-target="#blockUser" th:attr="data-id=${message.id}" th:text="#{default.block}"></button>
+                                                </a>
+                                                <a th:if="${message.blockedByOwnAdmin}">
+                                                    <button type="button" th:if="!${message.masterGroupe}"  class="btn btn-primary" aria-hidden="true" data-toggle="modal" data-target="#unBlockUser" th:attr="data-id=${message.id}" th:text="#{default.unblock}"></button>
+                                                </a>
+                                                <button type="button" th:if="!${message.masterGroupe}" class="btn btn-success" aria-hidden="true" data-toggle="modal" data-target="#userIsAdmin" th:attr="data-id=${message.id}" th:text="#{default.becomeAdmin}"></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- table-responsive -->
+
+
+                        </div><!-- panel-body -->
+                    </div><!-- panel -->
+                    <button class="btn btn-success" data-toggle="modal" data-target="#myModal" th:text="#{yourusers.adduser}">
+                    </button>
+                </div>
+            </div>
+
+        </div><!-- contentpanel -->
+
+    </div><!-- mainpanel -->
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel" th:text="#{yourusers.adduser}"></h4>
+                </div>
+                <form method="post"  id="addUser" th:action="@{/adduser}">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" th:text="#{profil.yourEmail}"><span class="asterisk">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="email" class="form-control" th:placeholder="#{profil.exempleYourEmail}" value="" />
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" th:text="#{profil.nameFirstName}"> <span class="asterisk">*</span></label>
+                        <div classg="col-sm-9">
+                            <input type="text" name="firstName" id="firstName" class="form-control" th:placeholder="#{profil.exempleNameFirstName}" value=""  />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" th:text="#{profil.nameLastName}"><span class="asterisk">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="lastName" id="lastName" class="form-control" th:placeholder="#{profil.exempleNameLastName}" value=""  />
+                        </div>
+                    </div>
+                </div>
+               <!-- <div class="form-group">
+                    <label class="col-sm-3 control-label" th:text="#{youruser.putYourUserAdmin}"></label>
+                    <div class="col-sm-9 control-label">
+                        <div class="toggle toggle-success" style="height: 20px; width: 50px;">
+                            <div class="toggle-slide">
+                                <div class="toggle-inner" style="width: 80px; margin-left: 0px;">
+                                    <div class="toggle-off" style="height: 20px; width: 40px; margin-left: -10px; text-align: center; text-indent: 10px; line-height: 20px;" th:text="#{default.no}"></div>
+                                    <div class="toggle-blob" style="height: 20px; width: 20px; margin-left: -10px;"></div>
+                                    <div class="toggle-on" style="height: 20px; width: 40px; text-align: center; text-indent: -10px; line-height: 20px;" th:text="#{default.yes}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="text" name="userIsAdmin" id="userIsAdmin" value="true"/>
+                </div> -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{yourusers.cancel}"></button>
+                    <button type="submit" class="btn btn-success" th:text="#{yourusers.add}"></button>
+                </div>
+            </form>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="trashUser" tabindex="-1" role="dialog" aria-labelledby="trashUserLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="trashUserLabel" th:text="#{yourusers.titleDeleteUser}"></h4>
+                </div>
+                <form id="deleteUser" th:action="@{/deleteuser}" method="post" role="form">
+                    <div class="modal-body">
+                        <p><center th:text="#{yourusers.deleteUser}" ></center></p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="changeValue">
+                            <!-- change it -->
+                        </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{default.no}"></button>
+                        <button type="submit" class="btn btn-success" th:text="#{default.yes}"></button>
+                    </div>
+                </form>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="blockUser" tabindex="-1" role="dialog" aria-labelledby="blockUserLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modifyUserLabel" th:text="#{youruser.blockUserTitle}"></h4>
+                </div>
+                <form id="blockUserform" th:action="@{/blockuser}" method="post" role="form">
+                    <div class="modal-body">
+                        <p><center th:text="#{youruser.blockUserquestion}" ></center></p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="changeValue">
+                            <!-- change it -->
+                        </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{default.no}"></button>
+                        <button type="submit" class="btn btn-success" th:text="#{default.yes}"></button>
+                    </div>
+                </form>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="unBlockUser" tabindex="-1" role="dialog" aria-labelledby="unBlockUserLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modifyUserLabel" th:text="#{youruser.unBlockUserTitle}"></h4>
+                </div>
+                <form id="unBlockUserform" th:action="@{/unblockuser}" method="post" role="form">
+                    <div class="modal-body">
+                        <p><center th:text="#{youruser.unBlockUserquestion}" ></center></p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="changeValue">
+                            <!-- change it -->
+                        </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{default.no}"></button>
+                        <button type="submit" class="btn btn-success" th:text="#{default.yes}"></button>
+                    </div>
+                </form>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="userIsAdmin" tabindex="-1" role="dialog" aria-labelledby="userIsAdminLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="userIsAdminLabel" th:text="#{youruser.putYourUserAdminTitle}"></h4>
+                </div>
+                <form id="formUserIsAdmin" th:action="@{/changeUserToAdminGroup}" method="post" role="form">
+                    <div class="modal-body">
+                        <p><center th:text="#{youruser.getAdmin}" ></center></p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="changeValue">
+                            <!-- change it -->
+                        </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{default.no}"></button>
+                        <button type="submit" class="btn btn-success" th:text="#{default.yes}"></button>
+                    </div>
+                </form>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div>
+
+</section>
+
+<!--<head th:replace="common/headerUser :: before-body-scripts"/> -->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+
+<script src="js/jquery.cookies.js"></script>
+
+
+<script src="js/jquery.datatables.min.js"></script>
+<script src="js/select2.min.js"></script>
+
+<script src="js/custom.js"></script>
+<script>
+    jQuery(document).ready(function() {
+
+        "use strict";
+
+        jQuery('#table1').dataTable();
+
+        jQuery('#table2').dataTable({
+            "sPaginationType": "full_numbers"
+        });
+
+        // Select2
+        jQuery('select').select2({
+            minimumResultsForSearch: -1
+        });
+
+        jQuery('select').removeClass('form-control');
+
+        // Delete row in a table
+        jQuery('.delete-row').click(function(){
+            var c = confirm("Continue delete?");
+            if(c)
+                jQuery(this).closest('tr').fadeOut(function(){
+                    jQuery(this).remove();
+                });
+            return false;
+        });
+
+        // Show aciton upon row hover
+        jQuery('.table-hidaction tbody tr').hover(function(){
+            jQuery(this).find('.table-action-hide a').animate({opacity: 1});
+        },function(){
+            jQuery(this).find('.table-action-hide a').animate({opacity: 0});
+        });
+    });
+
+    $(document).on("click", ".btn-danger", function () {
+        var userId = $(this).data('id');
+        var element ='<input type="hidden" name="userId" id="userId" value="'+userId +'"/>';
+        $('.changeValue').html(element);
+    });
+
+    $(document).on("click", ".btn-warning", function () {
+        var userId = $(this).data('id');
+        var element ='<input type="hidden" name="userId" id="userId" value="'+userId +'"/>';
+        $('.changeValue').html(element);
+
+    });
+
+    $(document).on("click", ".btn-primary", function () {
+        var userId = $(this).data('id');
+        var element ='<input type="hidden" name="userId" id="userId" value="'+userId +'"/>';
+        $('.changeValue').html(element);
+    });
+
+    $(document).on("click", ".btn-success", function () {
+        var userId = $(this).data('id');
+        var element ='<input type="hidden" name="userId" id="userId" value="'+userId +'"/>';
+        $('.modal-body .changeValue').html(element);
+
+    });
+
+    $(document).on("click", ".toggle-slide", function () {
+        var value = $(this).attr('class');
+        console.log(value);
+        if(value.indexOf("active") != -1){
+            $('#userIsAdmin').val('true');
+        }else {
+            $('#userIsAdmin').val('false');
+        }
+
+    });
+</script>
+<script src="js/devopsbuddy.js"></script>
+</body>
+</html>

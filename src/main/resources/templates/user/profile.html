@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/headerUser :: common-header"/>
+
+<body style="" class="leftpanel-collapsed">
+
+
+<section>
+
+    <div th:replace="common/headerUser :: leftpanel" />
+    <div class="mainpanel">
+
+        <div th:replace="common/headerUser :: headerbar" />
+
+        <div class="pageheader">
+            <h2><i class="fa fa-user"></i><div id="title" th:text="#{leftpanel.profil}"></div></h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">You are here:</span>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Bracket</a></li>
+                    <li class="active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <!--  add alerte message -->
+            <div th:if="${profileMessage == 'true'}" class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <center><p th:text="${message}" /></center>
+            </div>
+            <div th:if="${profileMessage == 'false'}" class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <center><p th:text="${message}" /></center>
+            </div>
+            <div class="container-fluid">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" th:text="#{leftpanel.profil}"></h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <ul class="nav nav-pills nav-stacked col-md-2">
+                                <li class="active"><a href="#tab_a" data-toggle="pill" th:text="#{profil.yourInformation}"></a></li>
+                                <li><a href="#tab_b" data-toggle="pill" th:text="#{profil.yourSettingAccount}"></a></li>
+                                <li th:if="${session.masterGroupe}"><a href="#tab_c" data-toggle="pill" th:text="#{profil.aboutYourCompany}"></a></li>
+                            </ul>
+                            <div class="tab-content col-md-10">
+                                <div class="tab-pane active" id="tab_a">
+                                    <form id="changeProfile" th:action="@{/profile1}" method="post" role="form">
+                                        <div class="panel panel-default">
+                                            <input type="hidden" name="profileBlock" value="true"/>
+                                            <div class="panel-body">
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.yourEmail}"><span class="asterisk">*</span></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="email" class="form-control" th:placeholder="#{profil.exempleYourEmail}" th:value="${session.email}"  disabled="" />
+                                                    </div>
+                                                </div>
+                                                <br/>
+                                                <br/>
+
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.nameFirstName}"> <span class="asterisk">*</span></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="firstName" id="firstName" class="form-control" th:placeholder="#{profil.exempleNameFirstName}" th:value="${session.firstName}"  />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.nameLastName}"><span class="asterisk">*</span></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="lastName" id="lastName" class="form-control" th:placeholder="#{profil.exempleNameLastName}" th:value="${session.lastName}"  />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.yourDesignation}"><span class="asterisk">*</span></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="designation" class="form-control" th:placeholder="#{profil.exempleYourDesignation}" th:value="${session.designation}" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.yourDepartment}"><span class="asterisk">*</span></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="department" class="form-control" th:placeholder="#{profil.exempleYourDepartment}"  th:value="${session.departement}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.yourCountry}"><span class="asterisk">*</span></label>
+                                                    <div class="col-sm-9">
+                                                        <!--   <input type="text" name="country" class="form-control" th:placeholder="#{profil.exempleYourCountry}" th:value="${session.country}" />
+                                                        -->
+                                                        <select id="country" class="form-control mb15"  th:placeholder="#{profil.exempleYourCountry}" name="countrySelectBoxProfil">
+                                                            <option value=""></option>
+                                                            <option value="CN" th:text="#{lang.ch}" th:selected="${session.country == 'ch'}"></option>
+                                                            <option value="FR" th:text="#{lang.fr}" th:selected="${session.country == 'FR'}"></option>
+                                                            <option value="GB" th:text="#{lang.eng}" th:selected="${session.country == 'eng'}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.YourDateOfBirth}"></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="dateOfBirth" class="form-control" th:placeholder="#{profil.exempleYourDateOfBirth}" th:value="${session.birthdayDate}" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.yourPhoneNumber}"></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="phoneNumber" class="form-control" th:placeholder="#{profil.exempleContactPersonPhoneNumber}" th:value="${session.phone}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.yourSkipeAccount}"></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="skipeAccount" class="form-control" th:placeholder="#{profil.exempleYourEmail}" th:value="${session.skypeNumer}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.yourFacebookUrl}"></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="facebookUrl" class="form-control" th:placeholder="#{profil.exempleYourFacebookUrl}" th:value="${session.facebookAccount}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.yourLinkedinUrl}"></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="linkedIn" class="form-control" th:placeholder="#{profil.exempleYourLinkedinUrl}" th:value="${session.linkedinAccount}"/>
+                                                    </div>
+                                                </div>
+
+                                            </div><!-- panel-body -->
+                                            <div class="panel-footer">
+                                                <div class="row">
+                                                    <div class="col-sm-9 col-sm-offset-3">
+                                                        <button type="submit" class="btn btn-success" th:text="#{profile.sumbitProfil}"></button>
+                                                        <button type="reset" class="btn btn-default" th:text="#{profile.cancel}"></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div><!-- panel -->
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="tab_b">
+                                    <form id="changeAccount" th:action="@{/profile2}" method="post" role="form">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.language}"></label>
+                                                    <div class="col-sm-9">
+                                                        <select id="language" name="language" class="form-control mb15"  th:placeholder="#{profil.selectLanguage}">
+                                                            <option value=""></option>
+                                                            <option value="en" th:text="#{lang.eng}" th:selected="${session.language == 'en'}"></option>
+                                                            <option value="fr" th:text="#{lang.fr}"  th:selected="${session.language == 'fr'}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.alertArea}"></label>
+                                                    <div class="col-sm-9">
+                                                        <select id="alertArea" name="alertArea" class="form-control mb15">
+                                                            <option value=""></option>
+                                                            <option value="true" th:text="#{default.yes}" th:selected="${session.alertArea}"></option>
+                                                            <option value="false" th:text="#{default.no}"  th:selected="!${session.alertArea}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div><!-- form-group -->
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profil.2FA}"></label>
+                                                    <div class="col-sm-9">
+                                                        <select id="2fa" name="2fa" class="form-control mb15" onchange="getNewVal(this);">
+                                                            <option value=""></option>
+                                                            <option value="true" th:text="#{default.yes}" th:selected="${session.strongAUth}"></option>
+                                                            <option value="false" th:text="#{default.no}"  th:selected="!${session.strongAUth}"></option>
+                                                        </select>
+                                                        <div id="showDisplay2fa"  style="display: none;">
+                                                            <img id="qrcode2FA" src=""/>
+                                                        </div>
+                                                        <div id="showDisplay2faDefault" th:if="${session.strongAUth}">
+                                                            <img id="qrcode2FA" th:src="${session.urlToDisplayQRCode}"/>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div><!-- form-group -->
+                                                <br/>
+                                                <br/>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profile.oldPassword}"></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="password" name="oldpassword" class="form-control" th:placeholder="#{profile.oldPassword}" value=""/>
+                                                    </div>
+                                                </div><!-- form-group -->
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profile.newPassword}"></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="password" name="newPassword" class="form-control" th:placeholder="#{profile.newPassword}" value=""/>
+                                                    </div>
+                                                </div><!-- form-group -->
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label" th:text="#{profile.confirmNewPassword}"></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="password" name="confirmNewPassword" class="form-control" th:placeholder="#{profile.confirmNewPassword}" value=""/>
+                                                    </div>
+                                                </div><!-- form-group -->
+                                            </div><!-- panel-body -->
+                                            <div class="panel-footer">
+                                                <div class="row">
+                                                    <div class="col-sm-9 col-sm-offset-3">
+                                                        <button class="btn btn-success" th:text="#{profile.sumbitProfil}"></button>
+                                                        <button type="reset" class="btn btn-default" th:text="#{profile.cancel}"></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div><!-- panel -->
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="tab_c" th:if="${session.masterGroupe}">
+                                    <form id="changeBusiness" name="changeBusiness" th:action="@{/profile3}" method="post" role="form">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="mb10">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label" th:text="#{profil.nameOfComapny}"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="nameOfComapny" id="nameOfComapny" class="form-control" th:placeholder="#{profil.exampleNameOfComapny}"  th:value="${session.companyName}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb10">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label" th:text="#{profil.kindOfOrganisation}"></label>
+                                                        <div class="col-sm-9">
+                                                            <select id="kindOfOrganisation"  name="kindOfOrganisation" class="form-control mb15"  th:placeholder="#{profil.exampleCorporationCompany}">
+                                                                <option value=""></option>
+                                                                <option value="corporation" th:text="#{profil.corporationCompany}" th:selected="${session.businessType == 'corporation'}"></option>
+                                                                <option value="sole_prop" th:text="#{profil.sole_propCompany}" th:selected="${session.businessType == 'sole_prop'}"></option>
+                                                                <option value="non_profit" th:text="#{profil.non_profitCompany}" th:selected="${session.businessType == 'non_profit'}"></option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div><!-- form-group -->
+                                                </div>
+
+                                                <div class="mb10">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label" th:text="#{profil.sirenOfCompany}"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="sirenOfCompany" id="sirenOfCompany" class="form-control" th:placeholder="#{profil.exempleSirenOfCompany}" th:value="${session.sirenCompany}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb10">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label" th:text="#{profil.tva}"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="tva" id="tva" class="form-control" th:placeholder="#{profil.exempleTva}"  th:value="${session.tvaNumberCompany}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb10">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label" th:text="#{profil.companiAddress}"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="street" id="street" class="form-control" th:placeholder="#{profil.exempleCompaniAddress}" th:value="${session.streetCompany}" />
+                                                        </div>
+                                                        <label class="col-sm-3 control-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="zipCode" id="zipCode" class="form-control" th:placeholder="#{profil.exempleZipCode}" th:value="${session.zipCodeCompany}"/>
+                                                        </div>
+                                                        <label class="col-sm-3 control-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="town" id="town" class="form-control" th:placeholder="#{profil.exempleTown}"  th:value="${session.townCompany}"/>
+                                                        </div>
+                                                        <label class="col-sm-3 control-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="countryCompany" id="countryCompany" class="form-control" th:placeholder="#{profil.exempleCountry}"  th:value="${session.countryCompany}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb10">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label" th:text="#{profil.contactPerson}"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="emailContact" id="emailContact" class="form-control" th:placeholder="#{profil.exempleContactPersonEmail}" th:value="${session.contactPersonEmail}" />
+                                                        </div>
+                                                        <label class="col-sm-3 control-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="phoneNumberContact" id="phoneNumberContact" class="form-control" th:placeholder="#{profil.exempleContactPersonPhoneNumber}"  th:value="${session.phoneNumberContact}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb10">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label" th:text="#{profil.websiteCompany}"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="websiteCompany" id="websiteCompany" class="form-control" th:placeholder="#{profil.exempleWebsiteCompany}"  th:value="${session.webSiteCompany}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb10">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label" th:text="#{profil.linkedinPageCompany}"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="linkedinPageCompany" id="linkedinPageCompany" class="form-control" th:placeholder="#{profil.exempleLinkedinPageCompany}"  th:value="${session.linkedinAccount}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- form-group -->
+                                            </div><!-- panel-body -->
+                                            <div class="panel-footer">
+                                                <div class="row">
+                                                    <div class="col-sm-9 col-sm-offset-3">
+                                                        <button type="submit" class="btn btn-success" th:text="#{profile.sumbitProfil}"></button>
+                                                        <button type="reset" class="btn btn-default" th:text="#{profile.cancel}"></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div><!-- panel -->
+                                    </form>
+
+                                </div>
+                            </div><!-- tab content -->
+                       </div>
+                    </div><!-- panel-body -->
+                </div><!-- panel -->
+            </div>
+
+        </div><!-- contentpanel -->
+
+    </div><!-- mainpanel -->
+
+
+</section>
+
+<head th:replace="common/headerUser :: before-body-scripts"/>
+
+</body>
+</html>

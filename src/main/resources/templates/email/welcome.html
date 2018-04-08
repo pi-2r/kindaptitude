@@ -1,0 +1,209 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Simple Transactional Email</title>
+    <!-- <link href="email.css" media="all" rel="stylesheet" type="text/css" /> -->
+    <style>
+      body,table td{font-family:sans-serif;font-size:14px}.body,body{background-color:#f6f6f6}.content,.img-block{display:block}.btn,.btn a,.content,.wrapper{box-sizing:border-box}.btn a,h1{text-transform:capitalize}.alert td,.btn table td,.footer,h1{text-align:center}.clear,.footer{clear:both}img{border:none;-ms-interpolation-mode:bicubic;max-width:100%}body{-webkit-font-smoothing:antialiased;line-height:1.4;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;margin:0;padding:0}.container,.content{max-width:580px;padding:10px}table{border-collapse:separate;mso-table-lspace:0;mso-table-rspace:0;width:100%}table td{vertical-align:top}.body{width:100%}.container{Margin:0 auto!important;width:auto!important;width:580px}.footer,.header,.main{width:100%}.content{Margin:0 auto}.main{background:#fff;border-radius:3px}.wrapper{padding:20px}.content-block{padding-top:10px;padding-bottom:10px}.flush-top{margin-top:0;padding-top:0}.flush-bottom{margin-bottom:0;padding-bottom:0}.header{margin-bottom:20px;Margin-top:10px}.header>table{min-width:100%}.footer{padding-top:10px}.footer a,.footer p,.footer span,.footer td{color:#999;font-size:12px;text-align:center}.section-callout{background-color:#1abc9c;color:#fff}.section-callout h1,.section-callout h2,.section-callout h3,.section-callout h4,.section-callout li,.section-callout p,.section-callout td{color:#fff}.section-callout-subtle{background-color:#f7f7f7;border-bottom:1px solid #e9e9e9;border-top:1px solid #e9e9e9}.btn a,.btn table td{background-color:#fff}.span-2,.span-3{display:inline-block;Margin-bottom:40px;vertical-align:top;width:100%}h1,h2,h3,h4,ol,p,ul{font-family:sans-serif;margin:0}.span-2>table,.span-3>table{padding-left:20px;padding-right:20px}.span-3,.span-3>table{max-width:278px}.span-2,.span-2>table{max-width:184px}@media only screen and (max-width:620px){.span-2,.span-3{max-width:none!important;width:100%!important}.span-2>table,.span-3>table{max-width:100%!important;width:100%!important}}h1,h2,h3,h4{color:#222;font-weight:400;line-height:1.4;Margin-bottom:30px}.btn a,a{color:#3498db}h1{font-size:35px;font-weight:300}h2{font-size:28px;Margin-bottom:15px}h3{font-size:21px}.btn a,h4,ol,p,ul{font-size:14px}h4{font-weight:500}ol,p,ul{font-weight:400;Margin-bottom:15px}ol li,p li,ul li{list-style-position:inside;margin-left:5px}a{text-decoration:underline}.alert a,.btn a,.powered-by a{text-decoration:none}.btn{min-width:100%!important;width:100%}.btn>tbody>tr>td{padding-bottom:15px}.btn table{width:auto}.btn table td{border-radius:5px}.btn a{border:1px solid #3498db;border-radius:5px;cursor:pointer;display:inline-block;font-weight:700;margin:0;padding:12px 25px}.btn-primary a,.btn-primary table td{background-color:#3498db}.alert a,.alert td{font-size:16px;font-weight:500}.btn-primary a{border-color:#3498db;color:#fff}@media all{.btn-primary a:hover,.btn-primary table td:hover{background-color:#34495e!important}.btn-primary a:hover{border-color:#34495e!important}}.btn-secondary a,.btn-secondary table td,.btn-tertiary a,.btn-tertiary table td{background-color:transparent}.btn-secondary a{border-color:#3498db;border-width:2px;color:#3498db}@media all{.btn-secondary a:hover{border-color:#34495e!important;color:#34495e!important}}.btn-tertiary a{border-color:#fff;border-width:2px;color:#fff}.alert{min-width:100%}.alert td{border-radius:3px 3px 0 0;color:#fff;padding:20px}.article .article-thumbnail,.article .article-title{padding-bottom:5px}.alert a{color:#fff}.alert.alert-warning td{background-color:#f39c12}.alert.alert-danger td{background-color:#c0392b}.alert.alert-success td{background-color:#27ae60}.receipt{margin:0 auto 80px;width:80%}.first,.mt0{margin-top:0}.last,.mb0{margin-bottom:0}.receipt td{border-bottom:1px solid #eee;padding:5px}.receipt td.receipt-figure{text-align:right}.align-center,.social-sharing{text-align:center}.receipt .receipt-subtle{color:#aaa}.receipt .receipt-bold td{border-bottom:2px solid #333;border-top:2px solid #333;font-size:18px;font-weight:600}.article .article-title,.article .article-title a{font-size:18.2px;font-weight:800;line-height:1.4em}.article .article-title a{color:#222;text-decoration:none}.social-sharing{Margin:0 auto;width:auto}.social-sharing-icon{height:44px;Margin:0 2px}.social-sharing-url{Margin:0 auto 20px;width:auto}.social-sharing-url td{background:rgba(255,255,255,.2);border:2px dashed #fff;color:#fff;font-size:18px;font-weight:600;padding:10px;text-align:center}.align-right{text-align:right}.align-left{text-align:left}.preheader{color:transparent;display:none;height:0;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;visibility:hidden;width:0}hr{border:0;border-bottom:1px solid #f6f6f6;Margin:20px 0}@media only screen and (max-width:620px){.header,h1,h2,h3{margin-bottom:10px!important}.btn a,.btn table,.container{width:100%!important}.alert td,.main{border-radius:0!important}h1{font-size:28px!important}h2{font-size:22px!important}a,h3,ol,p,span,td,ul{font-size:16px!important}.article,.wrapper{padding:10px!important}.container,.content{padding:0!important}.main{border-left-width:0!important;border-right-width:0!important}.img-responsive{height:auto!important;max-width:100%!important;width:auto!important}.alert td{padding:10px!important}.receipt{width:100%!important}}@media all{.ExternalClass{width:100%}.ExternalClass,.ExternalClass div,.ExternalClass font,.ExternalClass p,.ExternalClass span,.ExternalClass td{line-height:100%}.apple-link a{color:inherit!important;font-family:inherit!important;font-size:inherit!important;font-weight:inherit!important;line-height:inherit!important;text-decoration:none!important}}
+    </style>
+
+    <!--[if gte mso 9]>
+    <xml>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+  <o:PixelsPerInch>96</o:PixelsPerInch>
+ </o:OfficeDocumentSettings>
+</xml>
+<![endif]-->
+
+  </head>
+  <body class="">
+    <table border="0" cellpadding="0" cellspacing="0" class="body">
+      <tr>
+        <td>&nbsp;</td>
+        <td class="container">
+          <div class="content">
+
+            <!-- START CENTERED WHITE CONTAINER -->
+            <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
+
+            <!-- START HEADER -->
+            <div class="header">
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="align-center">
+                    <a href="http://htmlemail.io" target="_blank">
+                      <img src="img/logo.png" width="70" height="41" alt="Logo" align="center"/>
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- END HEADER -->
+            <table border="0" cellpadding="0" cellspacing="0" class="main">
+              <tr>
+                <td>
+                  <img src="img/hero.jpg" alt="Helpful placeholder image text" width="562" class="img-responsive"/>
+                </td>
+              </tr>
+
+              <!-- START MAIN CONTENT AREA -->
+              <tr>
+                <td class="wrapper">
+                  <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td>
+                        <h1 th:text="#{email.welcome}"></h1>
+                        <p>Hi Paul, welcome to Logo Inc. Great to have you on board.</p>
+                        <hr/>
+                        <h2>1. Verify your account</h2>
+                        <p>To ensure you're legitimate and not some fake person, please verify your account by clicking the button below.</p>
+                        <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                          <tbody>
+                            <tr>
+                              <td align="left">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                  <tbody>
+                                    <tr>
+                                      <td>
+                                        <a href="https://github.com/leemunroe/grunt-email-workflow" target="_blank">Verify my account</a>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <hr/>
+                        <h2>2. Complete your profile</h2>
+                        <p>With your account confirmed, it's time to complete your profile. We've found that adding a profile photo and other information will increase your chances of connecting with other Logo Inc. users by 80%.</p>
+                        <table border="0" cellpadding="0" cellspacing="0" class="btn btn-secondary">
+                          <tbody>
+                            <tr>
+                              <td align="left">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                  <tbody>
+                                    <tr>
+                                      <td>
+                                        <a href="https://github.com/leemunroe/grunt-email-workflow" target="_blank">Complete my profile</a>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <hr/>
+                        <h2>3. Start meeting people</h2>
+                        <p>Now you're ready to start meeting other logo enthusiasts. Good luck on your journey.</p>
+                        <table border="0" cellpadding="0" cellspacing="0" class="btn btn-secondary">
+                          <tbody>
+                            <tr>
+                              <td align="left">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                  <tbody>
+                                    <tr>
+                                      <td>
+                                        <a href="https://github.com/leemunroe/grunt-email-workflow" target="_blank">Start meeting people</a>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <!-- END MAIN CONTENT AREA -->
+              
+<!-- START CALL OUT --><tr>
+                <td class="wrapper section-callout">
+                  <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td class="align-center">
+                        Great to have you on board Paul :-)
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <!-- END CALL OUT -->
+              </table>
+
+            <!-- START FOOTER -->
+            <div class="footer">
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="content-block">
+                    <!--<span class="apple-link">Company Inc, 3 Abbey Road, San Francisco CA 94102</span>
+                    </br>-->
+                    Don't like these emails? <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="content-block">
+                    <table class="social-sharing">
+                      <tr>
+                        <td>
+                          Follow us for updates.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a href="https://twitter.com/home?status=Check%20this%20out%20http%3A//htmlemail.io"><img src="img/twitter.png" alt="Follow us on Twitter" width="44" class="social-sharing-icon"/></a>&nbsp;
+                          <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//htmlemail.io"><img src="img/facebook.png" alt="Like us on Facebook" width="44" class="social-sharing-icon"/></a>&nbsp;
+                          <a href=""><img src="img/pinterest.png" alt="Follow us on Pinterest" width="44" class="social-sharing-icon"/></a>&nbsp;
+                          <a href=""><img src="img/instagram.png" alt="Follow us on Instagram" width="44" class="social-sharing-icon"/></a>&nbsp;
+                          <a href=""><img src="img/linkedin.png" alt="Follow us on LinkedIn" width="44" class="social-sharing-icon"/></a>&nbsp;
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="content-block">
+                    <table>
+                      <tr>
+                        <td>
+                          Get the app today.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a href=""><img src="img/appstore.png" width="135" height="40" alt="Download from App Store"/></a>
+                          &nbsp;
+                          <a href=""><img src="img/playstore.png" width="116" height="40" alt="Available on Google Play"/></a>
+                          &nbsp;
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="content-block powered-by">
+                    Powered by <a href="http://htmlemail.io">HTMLemail</a>.
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- END FOOTER -->
+            
+<!-- END CENTERED WHITE CONTAINER --></div>
+        </td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+  </body>
+</html>

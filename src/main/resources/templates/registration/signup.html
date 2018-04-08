@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/headerLogin :: common-header"/>
+
+<body class="signin">
+<section>
+
+    <div class="signuppanel">
+
+        <div class="row">
+
+            <div class="putAlertSignup">
+                <div class="col-md-12  text-center">
+                    <div th:if="${signedUp == 'true'}" class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                        <p th:text="${message}" />
+                    </div>
+                    <div th:if="${signedUp == 'false'}" class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                        <p th:text="${message}" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <div class="signup-info">
+                    <div class="logopanel">
+                        <h1><span>[</span> KindAptitude <span>]</span></h1>
+                    </div><!-- logopanel -->
+
+                    <div class="mb20"></div>
+
+                    <h5><strong>Bootstrap 3 Admin Template!</strong></h5>
+                    <p>Bracket is a theme that is perfect if you want to create your own content management, monitoring or any other system for your project.</p>
+                    <p>Below are some of the benefits you can have when purchasing this template.</p>
+                    <div class="mb20"></div>
+
+                    <div class="feat-list">
+                        <i class="fa fa-wrench"></i>
+                        <h4 class="text-success">Easy to Customize</h4>
+                        <p>Bracket is made using Bootstrap 3 so you can easily customize any element of this template following the structure of Bootstrap 3.</p>
+                    </div>
+
+                    <div class="feat-list">
+                        <i class="fa fa-compress"></i>
+                        <h4 class="text-success">Fully Responsive Layout</h4>
+                        <p>Bracket is design to fit on all browser widths and all resolutions on all mobile devices. Try to scale your browser and see the results.</p>
+                    </div>
+
+                    <div class="feat-list mb20">
+                        <i class="fa fa-search-plus"></i>
+                        <h4 class="text-success">Retina Ready</h4>
+                        <p>When a user load a page, a script checks each image on the page to see if there's a high-res version of that image. If a high-res exists, the script will swap that image in place.</p>
+                    </div>
+
+                    <h4 class="mb20">and much more...</h4>
+
+                </div><!-- signup-info -->
+
+            </div><!-- col-sm-6 -->
+
+            <div class="col-md-6">
+
+                <form id="signupForm" th:action="@{/signup}"
+                      th:object="${__${T(com.project.web.controllers.SignupController).PAYLOAD_MODEL_KEY_NAME}__}"
+                      method="post" class="text-left" enctype="multipart/form-data">
+
+                    <h3 class="nomargin">Sign Up</h3>
+                    <p class="mt5 mb20" th:text="#{signUp.AlreadyNember}"><a href="login.html"><strong>Sign In</strong></a></p>
+
+                    <div class="mb10">
+                        <div class="form-group">
+                        <label class="control-label" th:text="#{signup.yourEmail}"></label>
+                        <input type="email" id="email" th:field="*{email}" th:placeholder="#{signup.yourEmail}" class="form-control fieldError"/>
+                        </div>
+                    </div>
+
+                    <div class="row mb10">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label" th:text="#{signUp.nameFirstName}"></label>
+                                <input type="text" class="form-control" th:placeholder="#{signUp.nameFirstName}"  name="firstName"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label" th:text="#{signUp.nameLastName}"></label>
+                                <input type="text" class="form-control" th:placeholder="#{signUp.nameLastName}" name="lastName" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb10">
+                        <div class="form-group">
+                        <label class="control-label" th:text="#{signup.password}"></label>
+                            <input type="password" id="password" th:placeholder="#{signup.password}" th:field="*{password}" class="form-control"/>
+                            <span id="result"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb10">
+                        <div class="form-group">
+                            <label class="control-label" th:text="#{signup.retypePassword}"></label>
+                            <input type="password" id="confirmPassword" th:field="*{confirmPassword}"  th:placeholder="#{signup.password}" class="form-control"/>
+                        </div>
+                        <span id="globalError" class="alert alert-danger col-sm-4" style="display:none"></span>
+                    </div>
+
+                    <div class="mb10">
+                        <div class="form-group">
+                            <label class="control-label" th:text="#{signup.birthday}"></label>
+                            <input type="text" class="form-control" th:placeholder="#{signup.dateFormat}"  name="birthday"/>
+                        </div>
+                    </div>
+
+
+                    <div class="mb10">
+                        <div class="form-group">
+                        <label class="control-label">Location</label>
+                        <select class="form-control mb15" id="country" name="country" th:field="*{country}" th:placeholder="#{signup.chooseCountry}">
+                            <option value=""></option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="mb10">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="agree" value="agree"  th:text="#{signup.condition}"/>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="form-group row" th:if="${enableCaptcha}">
+                        <!-- to enable captcha uncomment the keys in application.properties -->
+                        <label class="col-sm-3">Captcha</label><br/>
+                        <div id="captcha" class="g-recaptcha" th:attr="data-sitekey=${@CaptchaService.getReCaptchaSite()}" data-callback="onReCaptchaSuccess" data-expired-callback="onReCaptchaExpired"></div>
+                        <span id="captchaError" class="alert alert-danger col-sm-4" style="display:none"></span>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block" th:text="#{signup.botton}"></button>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+            </div><!-- col-sm-6 -->
+
+        </div><!-- row -->
+
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 2014. All Rights Reserved. Bracket Bootstrap 3 Admin Template
+            </div>
+            <div class="pull-right">
+                Created By: <a href="http://themepixels.com/" target="_blank">ThemePixels</a>
+            </div>
+        </div>
+    </div><!-- signuppanel -->
+
+</section>
+
+
+<div th:replace="common/headerLogin :: before-body-scripts" />
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var serverContext = [[@{/}]];
+
+    $(document).ready(function() {
+        $('#password').keyup(function() {
+            $('#result').html(checkStrength($('#password').val()))
+        })
+        function checkStrength(password) {
+            var strength = 0
+            if (password.length < 6) {
+                $('#result').removeClass()
+            }
+            if (password.length > 7) strength += 1
+// If password contains both lower and uppercase characters, increase strength value.
+            if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) strength += 1
+// If it has numbers and characters, increase strength value.
+            if (password.match(/([a-zA-Z])/) && password.match(/([0-9])/)) strength += 1
+// If it has one special character, increase strength value.
+            if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) strength += 1
+// If it has two special characters, increase strength value.
+            if (password.match(/(.*[!,%,&,@,#,$,^,*,?,_,~].*[!,%,&,@,#,$,^,*,?,_,~])/)) strength += 1
+// Calculated strength value, we can return messages
+// If value is less than 2
+            if (strength < 2) {
+                $('#result').removeClass()
+                $('#result').addClass('weak')
+                return /*[[#{signup.weakPassword}]]*/
+            } else if (strength == 2) {
+                $('#result').removeClass()
+                $('#result').addClass('good')
+                return /*[[#{signup.normalPassword}]]*/
+            } else {
+                $('#result').removeClass()
+                $('#result').addClass('strong')
+                return /*[[#{signup.strongPassword}]]*/
+            }
+        }
+    });
+    /*]]>*/
+
+</script>
+</body>
+</html>

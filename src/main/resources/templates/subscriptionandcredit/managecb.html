@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+
+<head th:replace="common/headerUser :: common-header"/>
+
+<body style="" class="leftpanel-collapsed">
+<section>
+
+    <div th:replace="common/headerUser :: leftpanel" />
+    <div class="mainpanel">
+
+        <div th:replace="common/headerUser :: headerbar" />
+
+        <div class="pageheader">
+            <h2 ><i class="fa fa-credit-card"></i><div id="title" th:text="#{onglet4.addCB}"></div> </h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">You are here:</span>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Bracket</a></li>
+                    <li class="active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <!--  add alerte message -->
+            <div th:if="${addCBMessage == 'true'}" class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <center><p th:text="${message}" /></center>
+            </div>
+            <div th:if="${addCBMessage == 'false'}" class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <center><p th:text="${message}" /></center>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+
+                    <!-- add CB -->
+                    <div class="col-md-6">
+                        <form id="managecb" th:action="@{/managecb}" method="post" role="form">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title" th:text="#{subscriptionandcredit.addCb}"></h4>
+                                    <p th:text="#{subscriptionandcredit.nosavecb}"></p>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" th:text="#{subscriptionandcredit.yourCb}"></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="ccNumber" id="ccNumber" class="form-control" th:placeholder="#{subscriptionandcredit.cbExample}"  />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" th:text="#{subscriptionandcredit.expiracyDate}"></label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="expMonth" id="expMonth" class="form-control" th:placeholder="#{subscriptionandcredit.monthExample}"  />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="expYear" id="expYear" class="form-control" th:placeholder="#{subscriptionandcredit.yearExample}"  />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" th:text="#{subscriptionandcredit.code}"></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="cvcNumber" id="cvcNumber" class="form-control" th:placeholder="#{subscriptionandcredit.cvcExample}"  />
+                                        </div>
+                                    </div>
+                                </div><!-- panel-body -->
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-sm-9 col-sm-offset-3">
+                                            <button type="submit" class="btn btn-success" th:text="#{profile.sumbitProfil}"></button>
+                                            <button type="reset" class="btn btn-default" th:text="#{profile.cancel}"></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!-- panel -->
+                        </form>
+
+
+                    </div><!-- col-md-6 -->
+
+                    <!-- Manage CB -->
+                    <div class="col-md-6">
+                        <form id="basicForm2" action="form-validation.html" class="form-horizontal">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title" th:text="#{subscriptionandcredit.historyCb}"></h4>
+                                    <p th:text="#{subscriptionandcredit.historyStripe}"></p>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div th:if="${exp_year != null}">
+                                            <p th:text="#{subscriptionandcredit.textrecordeCB1}
+                                            + ' ' +${brand} + ' ' + #{subscriptionandcredit.textrecordeCB2}+ ' '+ ${exp_month}
+                                            + '/'+ ${exp_year}+ ' '+  #{subscriptionandcredit.textrecordeCB3} + ' '+ ${last4}"></p>
+                                            <p th:text="#{subscriptionandcredit.textrecordeCB4}"></p>
+
+                                        </div>
+                                        <div th:if="${exp_year == null}">
+                                            vous n'avez pas encore de carte blue enregistré
+                                        </div>
+                                    </div>
+
+                                </div><!-- panel-body -->
+
+                                <div class="panel-footer">
+                                    <div th:if="${exp_year != null}">
+                                    <div class="row">
+                                        <div class="col-sm-9 col-sm-offset-3">
+                                            <button type="button" class="btn btn-default"  th:text="#{default.no}"></button>
+                                            <button  type="button" class="btn btn-success" aria-hidden="true" data-toggle="modal" data-target="#deleteCreditCard" th:text="#{default.yes}"></button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div><!-- panel -->
+                        </form>
+                    </div><!-- col-md-6 -->
+
+                </div>
+            </div>
+
+        </div><!-- contentpanel -->
+
+    </div><!-- mainpanel -->
+    <div class="modal fade" id="deleteCreditCard" tabindex="-1" role="dialog" aria-labelledby="deleteCreditCardUserLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modifyUserLabel" th:text="#{subscriptionandcredit.modalTitle}"></h4>
+                </div>
+                <form id="deleteCreditCardUserform" th:action="@{/deleteCreditCard}" method="post" role="form">
+                    <div class="modal-body">
+                        <p><center th:text="#{subscriptionandcredit.modalquestion}" ></center></p>
+                        <p><center th:text="#{subscriptionandcredit.modaltext}" ></center></p>
+                        <input type="hidden" name="yes" id="yes" value="true"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{default.no}"></button>
+                        <button type="submit" class="btn btn-success" th:text="#{default.yes}"></button>
+                    </div>
+                </form>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div>
+
+</section>
+
+<!--<head th:replace="common/headerUser :: before-body-scripts"/> -->
+<div th:replace="common/headerLogin :: before-body-scripts" />
+<!--<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+
+<script src="js/bootstrap-wizard.min.js"></script>
+<script src="js/select2.min.js"></script>
+
+<script src="js/custom.js"></script>
+
+<script src="js/project.js"></script> -->
+</body>
+</html>

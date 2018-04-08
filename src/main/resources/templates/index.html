@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common/header :: common-header" />
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            var selectedOption = $('#locales').val();
+            if (selectedOption != ''){
+                window.location.replace('index?lang=' + selectedOption);
+            }
+        });
+    });
+</script> -->
+<body>
+
+    <div th:replace="common/navbar :: common-navbar" />
+
+    <div class="container">
+        <select id="locales">
+            <option value=""></option>
+            <option value="en" th:text="#{lang.eng}"></option>
+            <option value="fr" th:text="#{lang.fr}"></option>
+        </select>
+        <div class="starter-template">
+            <h1 th:text="#{index.main.callout}">Enter main callout here</h1>
+            <p class="lead">Use this document as a way to quickly start any new project.<br /> All you get is this text and a
+                mostly barebones HTML document.</p>
+        </div>
+
+    </div><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <div th:replace="common/header :: before-body-scripts" />
+
+</body>
+</html>
