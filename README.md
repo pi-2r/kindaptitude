@@ -42,6 +42,8 @@ The main goal of this personal project is to create a web platform with many com
 
 ![enter image description here](http://image.ibb.co/czMTKx/auth.png)
 																				*login page*
+																				login: demo@gmail.com
+																				password: pierre
 
 ![enter image description here](https://image.ibb.co/mSLkXH/2fa2.png)
 
